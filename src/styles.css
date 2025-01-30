@@ -1,0 +1,10 @@
+.Game {
+    margin:auto;
+    width: 100vw;
+    @media only screen and (min-width : 768px) {
+        width: 65vw;
+      }
+    @media only screen and (min-width : 1080px) {
+        width: 45vw;
+      }
+}
