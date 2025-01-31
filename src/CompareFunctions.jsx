@@ -62,22 +62,22 @@ export const compareSeasons = (guess, season) => {
 export const getSkillIconPath = (sinner_name, identity_name, skill_name) => {
     const sinner_folder = sinner_name.replace(/\W/g, '');
     const identity_folder = identity_name.replace(/\W/g, '');
-    return "src\\assets\\IdentitySkillArt\\"+sinner_folder+"\\"+identity_folder+"\\"+skill_name+".png";
+    return "images\\IdentitySkillArt\\"+sinner_folder+"\\"+identity_folder+"\\"+skill_name+".png";
   }
   
 export const getEgoIconPath = (sinner_name, ego_name) => {
     const sinner_folder = sinner_name.replace(/\W/g, '');
     const ego_folder = ego_name.replace(/\W/g, '');
-    return "src\\assets\\IdentitiesEGOArt\\"+sinner_folder+"\\EGO\\"+ego_folder+"\\_awaken_profile.png";
+    return "images\\IdentitiesEGOArt\\"+sinner_folder+"\\EGO\\"+ego_folder+"\\_awaken_profile.png";
   }
 
   export const getSplashIconPath = (sinner_name, id_name, rarity, normal) => {
     const sinner_folder = sinner_name.replace(/\W/g, '');
     const id_folder = id_name.replace(/\W/g, '');
     if (rarity === '0' || normal) {
-      return "src\\assets\\IdentitiesEGOArt\\"+sinner_folder+"\\Identities\\"+id_folder+"\\_normal.png";
+      return "images\\IdentitiesEGOArt\\"+sinner_folder+"\\Identities\\"+id_folder+"\\_normal.png";
     } else {
-      return "src\\assets\\IdentitiesEGOArt\\"+sinner_folder+"\\Identities\\"+id_folder+"\\_gacksung.png";
+      return "images\\IdentitiesEGOArt\\"+sinner_folder+"\\Identities\\"+id_folder+"\\_gacksung.png";
     }   
   }
 
