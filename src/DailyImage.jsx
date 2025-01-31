@@ -46,7 +46,7 @@ export const DailyImage = () => {
     const formatResult = (item) => {
       const sinner_folder = item.sinner_name.replace(/\W/g, '');
       const id_folder = item.id_title.replace(/\W/g, '');
-      const icon_path = "https://raw.githubusercontent.com/jesmonn/limbusdle/refs/heads/gh-pages/images\\IdentitiesEGOArt\\"+sinner_folder+"\\Identities\\"+id_folder+"\\_gacksung_profile.png";
+      const icon_path = "https://raw.githubusercontent.com/jesmonn/limbusdle/refs/heads/master/src/assets/images\\IdentitiesEGOArt\\"+sinner_folder+"\\Identities\\"+id_folder+"\\_gacksung_profile.png";
       return (
           <>
           <div style={
@@ -166,7 +166,7 @@ export const DailyImage = () => {
 
             const sinner_folder = guess.sinner_name.replace(/\W/g, '');
             const id_folder = guess.id_title.replace(/\W/g, '');
-            const icon_path = "https://raw.githubusercontent.com/jesmonn/limbusdle/refs/heads/gh-pages/images\\IdentitiesEGOArt\\"+sinner_folder+"\\Identities\\"+id_folder+"\\_gacksung_profile.png";
+            const icon_path = "https://raw.githubusercontent.com/jesmonn/limbusdle/refs/heads/master/src/assets/images\\IdentitiesEGOArt\\"+sinner_folder+"\\Identities\\"+id_folder+"\\_gacksung_profile.png";
 
             return <div style={{
                     display: 'flex',
