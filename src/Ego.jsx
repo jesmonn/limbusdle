@@ -21,7 +21,12 @@ export const Ego = (props) => {
             objectFit: "cover"
             }}></img>
         </div>
-        <div style={flexFeat(1.5, props.guessEgo.sinnerColor)}>
+        <div style={{...flexFeat(1.5, props.guessEgo.sinnerColor),
+          backgroundImage: props.guessEgo.sinnerArrow,
+          backgroundSize: 'contain',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center'
+        }}>
           <p style={basicTextStyle}>
             {JSON.stringify(props.guessEgo.sinner_name).slice(1, -1)}
           </p>
@@ -50,6 +55,7 @@ export const Ego = (props) => {
         <div style={flexFeat(3, props.guessEgo.specialtiesColor)}>
           <p style={basicTextStyle}>
             {JSON.stringify(props.guessEgo.specialties.join(', ')).slice(1, -1).replace(/-/g, ' ')}
+            {props.guessEgo.specialties.length === 1 && props.guessEgo.specialties[0] === '-' && "None"}
           </p>
         </div>
     

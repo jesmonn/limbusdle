@@ -5,7 +5,7 @@ import { ReactSearchAutocomplete } from 'react-search-autocomplete';
 import { compareGuessAndCheckSolved, getSplashIconPath, guessToEmojis, initializeIdentities } from './CompareFunctions'
 import './styles.css'
 
-export const DailyImage = () => {
+export const EndlessImage = () => {
     const [solved, setSolved] = useState(false);
     const [identities, setIdentities] = useState([{}]);
     const [chosenIdentity, setChosenIdentity] = useState([false, {}]);
@@ -18,12 +18,13 @@ export const DailyImage = () => {
     const [searchString, setSearchString] = useState("");
 
     useEffect(() => {
-        const rand = new Rand(String(3+new Date().toLocaleString('en-US', { timeZone: 'Asia/Jakarta', year: 'numeric', month: 'numeric', day: 'numeric', })), PRNG.xoshiro128ss)
-        initializeIdentities(setIdentities, setChosenIdentity, rand.next())
-        setXRandom(rand.next());
-        setYRandom(rand.next());
-        setImageRandom(rand.next() < 0.5);
-        setImageRandom2(rand.next() < 0.5);
+      const random = Math.random()
+      const rand = new Rand(String((Date.now()*random)), PRNG.xoshiro128ss)
+      initializeIdentities(setIdentities, setChosenIdentity, rand.next())
+      setXRandom(rand.next());
+      setYRandom(rand.next());
+      setImageRandom(rand.next() < 0.5);
+      setImageRandom2(rand.next() < 0.5);
     }, [])
 
     const addGuess = (identity) => {
@@ -93,7 +94,7 @@ export const DailyImage = () => {
         borderRadius: '5px',
         backdropFilter: 'blur(6px)'
       }}>
-        <p style={basicTextStyle}>Identify the identity by its art! Resets every midnight UTC+7. The image will zoom out with each guess, up to a certain amount.</p>
+        <p style={basicTextStyle}>Identify the identity by its art! Endless mode, resets each time the page is loaded. The image will zoom out with each guess, up to a certain amount.</p>
       </div>
       
       <div style={{marginBottom: 40}}>

@@ -6,7 +6,7 @@ import { Ego } from "./Ego";
 import { compareGuessAndCheckSolvedEgo, getEgoIconPath, guessToEmojis, initializeEgos, guessToEmojisEgo } from './CompareFunctions';
 import './styles.css'
 
-export const DailyEgo = () => {
+export const EndlessEgo = () => {
     const [solved, setSolved] = useState(false);
     const [egos, setEgos] = useState([{}]);
     const [chosenEgo, setChosenEgo] = useState([false, {}]);
@@ -20,9 +20,10 @@ export const DailyEgo = () => {
     }
 
     useEffect(() => {
-        const rand = new Rand(String(1+new Date().toLocaleString('en-US', { timeZone: 'Asia/Jakarta', year: 'numeric', month: 'numeric', day: 'numeric', })), PRNG.xoshiro128ss)
-        initializeEgos(setEgos, setChosenEgo, rand.next())
-        console.log(chosenEgo)
+      const random = Math.random()
+      const rand = new Rand(String(Date.now()*random), PRNG.xoshiro128ss)
+      initializeEgos(setEgos, setChosenEgo, rand.next())
+      console.log(chosenEgo)
     }, [])
 
     const addGuess = (ego) => {
@@ -90,7 +91,7 @@ export const DailyEgo = () => {
         borderRadius: '5px',
         backdropFilter: 'blur(6px)'
       }}>
-        <p style={basicTextStyle}>Guess the E.G.O! Resets every midnight UTC+7. (Note: Standard Fare is considered Season 0.)</p>
+        <p style={basicTextStyle}>Guess the E.G.O! Endless mode, resets each time the page is loaded. (Note: Standard Fare is considered Season 0.)</p>
       </div>
        <div style={{marginBottom: 40}}>
         <div className="addGuess" style={

@@ -1,6 +1,241 @@
 {
     "identities": [
         {
+            "id_title": "Kurokumo Clan Captain",
+            "sinner_name": "Ishmael",
+            "season": "Season 5 - Oblivion",
+            "id_rarity": "000",
+            "skills": [
+                {
+                    "skill_num": "Skill 1",
+                    "skill_name": "Clean Up",
+                    "sin_affinity": "Envy"
+                },
+                {
+                    "skill_num": "Skill 2",
+                    "skill_name": "Sharpened Blade",
+                    "sin_affinity": "Pride"
+                },
+                {
+                    "skill_num": "Skill 3",
+                    "skill_name": "Ink Over",
+                    "sin_affinity": "Lust"
+                },
+                {
+                    "skill_num": "Defense",
+                    "skill_name": "Scattering Slash",
+                    "sin_affinity": "Lust"
+                }
+            ],
+            "passives": [
+                {
+                    "passive_type": "Passive",
+                    "passive_name": "Battle Ready"
+                },
+                {
+                    "passive_type": "Passive",
+                    "passive_name": "Gathering Dark Clouds"
+                },
+                {
+                    "passive_type": "Support",
+                    "passive_name": "Cloud Workshop Blade"
+                }
+            ],
+            "specialties": [
+                "Bleed",
+                "Fragile"
+            ],
+            "sin_affinity_s1": "Envy",
+            "sin_affinity_s2": "Envy",
+            "sin_affinity_s3": "Envy"
+        },
+        {
+            "id_title": "Kurokumo Clan Wakashu",
+            "sinner_name": "Heathcliff",
+            "season": "Season 5 - Oblivion",
+            "id_rarity": "000",
+            "skills": [
+                {
+                    "skill_num": "Skill 1",
+                    "skill_name": "Lenticular Rend",
+                    "sin_affinity": "Wrath"
+                },
+                {
+                    "skill_num": "Skill 2",
+                    "skill_name": "Stormcloud",
+                    "sin_affinity": "Pride"
+                },
+                {
+                    "skill_num": "Skill 3",
+                    "skill_name": "Thundercleave",
+                    "sin_affinity": "Lust"
+                },
+                {
+                    "skill_num": "Defense",
+                    "skill_name": "Rules of the Backstreets",
+                    "sin_affinity": "Lust"
+                }
+            ],
+            "passives": [
+                {
+                    "passive_type": "Passive",
+                    "passive_name": "Battle Ready"
+                },
+                {
+                    "passive_type": "Passive",
+                    "passive_name": "Dark Cloud Blade"
+                },
+                {
+                    "passive_type": "Support",
+                    "passive_name": "Impale"
+                }
+            ],
+            "specialties": [
+                "Bleed"
+            ],
+            "sin_affinity_s1": "Wrath",
+            "sin_affinity_s2": "Wrath",
+            "sin_affinity_s3": "Wrath"
+        },
+        {
+            "id_title": "Liu Association South Section 3",
+            "sinner_name": "Yi Sang",
+            "season": "Standard Fare",
+            "id_rarity": "000",
+            "skills": [
+                {
+                    "skill_num": "Skill 1",
+                    "skill_name": "Flame Hew",
+                    "sin_affinity": "Sloth"
+                },
+                {
+                    "skill_num": "Skill 2",
+                    "skill_name": "Frontal Assault",
+                    "sin_affinity": "Wrath"
+                },
+                {
+                    "skill_num": "Skill 3",
+                    "skill_name": "Flow of the Sword",
+                    "sin_affinity": "Envy"
+                },
+                {
+                    "skill_num": "Defense",
+                    "skill_name": "Flame Counter",
+                    "sin_affinity": "Wrath"
+                }
+            ],
+            "passives": [
+                {
+                    "passive_type": "Passive",
+                    "passive_name": "Inner Ardor"
+                },
+                {
+                    "passive_type": "Support",
+                    "passive_name": "Liu Defensive Square"
+                }
+            ],
+            "specialties": [
+                "Burn"
+            ],
+            "sin_affinity_s1": "Sloth",
+            "sin_affinity_s2": "Sloth",
+            "sin_affinity_s3": "Sloth"
+        },
+        {
+            "id_title": "Firefist Office Survivor",
+            "sinner_name": "Gregor",
+            "season": "Season 5 - Oblivion",
+            "id_rarity": "000",
+            "skills": [
+                {
+                    "skill_num": "Skill 1",
+                    "skill_name": "Flamethrow",
+                    "sin_affinity": "Lust"
+                },
+                {
+                    "skill_num": "Skill 2",
+                    "skill_name": "I'll burn away every last drop of your filthy blood",
+                    "sin_affinity": "Wrath"
+                },
+                {
+                    "skill_num": "Skill 3",
+                    "skill_name": "Firefist",
+                    "sin_affinity": "Wrath"
+                },
+                {
+                    "skill_num": "Defense",
+                    "skill_name": "I have to keep going for big sis",
+                    "sin_affinity": "Gloom"
+                }
+            ],
+            "passives": [
+                {
+                    "passive_type": "Passive",
+                    "passive_name": "District 12 Special Workshop Fuel"
+                },
+                {
+                    "passive_type": "Passive",
+                    "passive_name": "I'm the only survivor\u2026"
+                },
+                {
+                    "passive_type": "Support",
+                    "passive_name": "I hope they're from our Office\u2026"
+                }
+            ],
+            "specialties": [
+                "Burn"
+            ],
+            "sin_affinity_s1": "Lust",
+            "sin_affinity_s2": "Lust",
+            "sin_affinity_s3": "Lust"
+        },
+        {
+            "id_title": "Cinq Assoc. East Section 3",
+            "sinner_name": "Don Quixote",
+            "season": "Standard Fare",
+            "id_rarity": "000",
+            "skills": [
+                {
+                    "skill_num": "Skill 1",
+                    "skill_name": "Fa Jin",
+                    "sin_affinity": "Gluttony"
+                },
+                {
+                    "skill_num": "Skill 2",
+                    "skill_name": "Virescent Flame Palm",
+                    "sin_affinity": "Wrath"
+                },
+                {
+                    "skill_num": "Skill 3",
+                    "skill_name": "Prithee, let this be an enlightening bout",
+                    "sin_affinity": "Pride"
+                },
+                {
+                    "skill_num": "Defense",
+                    "skill_name": "Thou'rt in dire need of a lesson in table manners!",
+                    "sin_affinity": "Wrath"
+                }
+            ],
+            "passives": [
+                {
+                    "passive_type": "Passive",
+                    "passive_name": "Virescent Pyrojade"
+                },
+                {
+                    "passive_type": "Support",
+                    "passive_name": "Featherstride Technique"
+                }
+            ],
+            "specialties": [
+                "Burn",
+                "Haste",
+                "Poise"
+            ],
+            "sin_affinity_s1": "Gluttony",
+            "sin_affinity_s2": "Gluttony",
+            "sin_affinity_s3": "Gluttony"
+        },
+        {
             "id_title": "Blade Lineage Salsu",
             "sinner_name": "Outis",
             "season": "Standard Fare",
@@ -6792,6 +7027,16 @@
         {
             "ego_name": "Thoracalgia",
             "sinner_name": "Ryoshu",
+            "season": "Season 5 - Oblivion",
+            "rarity": "HE",
+            "sin_affinity": "Pride",
+            "specialties": [
+                "Poise"
+            ]
+        },
+        {
+            "ego_name": "Thoracalgia",
+            "sinner_name": "Faust",
             "season": "Season 5 - Oblivion",
             "rarity": "HE",
             "sin_affinity": "Pride",

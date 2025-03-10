@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Rand from 'rand-seed';
+import Rand, { PRNG } from 'rand-seed';
 import { logoTextStyle, flexHeader, basicTextStyle, basicTextStyleBold } from './styles';
 import { ReactSearchAutocomplete } from 'react-search-autocomplete';
 import { Identity } from "./Identity";
@@ -13,9 +13,19 @@ export const DailyIdentity = () => {
     const [guessList, setGuessList] = useState([]);
     // const [guessFilenames, setGuessFilenames] = useState([]);
     const [searchString, setSearchString] = useState("");
+    const [showHint1, setShowHint1] = useState(false);
+    const [showHint2, setShowHint2] = useState(false);
+
+    const toggleHint1 = () => {
+      setShowHint1(!showHint1)
+    }
+
+    const toggleHint2 = () => {
+      setShowHint2(!showHint2)
+    }
 
     useEffect(() => {
-        const rand = new Rand(new Date().toLocaleString('en-US', { timeZone: 'Asia/Jakarta', year: 'numeric', month: 'numeric', day: 'numeric', }))
+        const rand = new Rand(String(new Date().toLocaleString('en-US', { timeZone: 'Asia/Jakarta', year: 'numeric', month: 'numeric', day: 'numeric', })), PRNG.xoshiro128ss)
         initializeIdentities(setIdentities, setChosenIdentity, rand.next())
         console.log(chosenIdentity)
     }, [])
@@ -80,7 +90,15 @@ export const DailyIdentity = () => {
     return (
         <div className="Game">
       <h1 style={logoTextStyle}>Limbusdle</h1>
-      <p style={basicTextStyle}>Guess the identity! Resets every midnight UTC+7. (Note: Standard Fare is considered Season 0.)</p>
+      <div style={{
+        backgroundColor: 'rgba(33, 32, 32, 0.2)',
+        borderColor: 'rgba(33, 32, 32, 0.2)',
+        border: '2px',
+        borderRadius: '5px',
+        backdropFilter: 'blur(6px)'
+      }}>
+        <p style={basicTextStyle}>Guess the identity! Resets every midnight UTC+7. (Note: Standard Fare is considered Season 0.)</p>
+      </div>
       <div style={{marginBottom: 40}}>
         <div className="addGuess" style={
           {
@@ -91,9 +109,19 @@ export const DailyIdentity = () => {
             maxWidth: '100vw',
           }
         }>
-          {!solved && <div>
-            {!(guessList.length > 3) && <div style={basicTextStyle}>A blurred monochrome image of its Skill 1 will reveal itself after {4-guessList.length} guess(es).</div>}
-            {(guessList.length > 3) && <img 
+          {!solved && <div style={{
+        backgroundColor: 'rgba(33, 32, 32, 0.2)',
+        borderColor: 'rgba(33, 32, 32, 0.2)',
+        border: '2px',
+        borderRadius: '5px',
+        backdropFilter: 'blur(6px)'
+      }}>
+            {!(guessList.length > 3) && <div style={basicTextStyle}>A blurred monochrome image of its Skill 1 can be revealed after {4-guessList.length} guess(es).</div>}
+            {(guessList.length > 3 && !showHint1) && <button onClick={toggleHint1}>
+              Show Skill
+            </button>
+            }
+            {(guessList.length > 3 && showHint1) && <img 
               src={getSkillIconPath(chosenIdentity.sinner_name, chosenIdentity.id_title, chosenIdentity.skills[0].skill_name)}
               style={{
                   width: 150,
@@ -103,9 +131,13 @@ export const DailyIdentity = () => {
                   pointerEvents: 'none'
                 }}
               ></img>}
-            {!(guessList.length > 7) && <div style={basicTextStyle}>The name of its Support passive will reveal itself after {8-guessList.length} guess(es).</div>}
-            {(guessList.length > 7) && <div style={basicTextStyle}>Support Passive: {chosenIdentity.passives.at(-1).passive_name}</div>}
-          
+            <br></br>
+            {!(guessList.length > 7) && <div style={basicTextStyle}>The name of its Support passive can be revealed after {8-guessList.length} guess(es).</div>}
+            {(guessList.length > 7 && showHint2) && <div style={basicTextStyle}>Support Passive: {chosenIdentity.passives.at(-1).passive_name}</div>}
+            {(guessList.length > 7 && !showHint2) && <button onClick={toggleHint2}>
+              Show Passive
+            </button>
+            }
           </div>
           }
           {!solved && <div style={{animation: 'fade-in 1.2s'}}><ReactSearchAutocomplete
@@ -117,7 +149,7 @@ export const DailyIdentity = () => {
               onSearch={handleOnSearch}
               inputSearchString={searchString}
               fuseOptions={{
-                keys: ["name"]
+                keys: ["id_title", "sinner_name"]
               }}
               styling={
                 {
@@ -127,7 +159,13 @@ export const DailyIdentity = () => {
             />
            </div>}
           
-          {solved && <h2 style={basicTextStyle}>
+          {solved && <div style={{
+            backgroundColor: 'rgba(33, 32, 32, 0.2)',
+            borderColor: 'rgba(33, 32, 32, 0.2)',
+            border: '2px',
+            borderRadius: '5px',
+            backdropFilter: 'blur(6px)'
+      }}><h2 style={basicTextStyle}>
             You found the identity in <b>{guessList.length}</b> guess(es)!
             <br></br>
             <p style={{whiteSpace: 'pre-wrap'}}>{guessToEmojis(guessList)}</p>
@@ -137,6 +175,7 @@ export const DailyIdentity = () => {
                 guessToEmojisIdentity(guessList))
             }>Copy</button> 
             </h2>
+            </div>
             }
         </div>
         <div className="list" style={{

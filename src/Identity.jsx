@@ -21,7 +21,12 @@ export const Identity = (props) => {
             objectFit: "cover"
             }}></img>
         </div>
-        <div style={flexFeat(1.5, props.guessId.sinnerColor)}>
+        <div style={{...flexFeat(1.5, props.guessId.sinnerColor),
+          backgroundImage: props.guessId.sinnerArrow,
+          backgroundSize: 'contain',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center'
+        }}>
           <p style={basicTextStyle}>
             {JSON.stringify(props.guessId.sinner_name).slice(1, -1)}
           </p>
@@ -45,6 +50,7 @@ export const Identity = (props) => {
         <div style={flexFeat(3, props.guessId.specialtiesColor)}>
           <p style={basicTextStyle}>
             {JSON.stringify(props.guessId.specialties.join(', ')).slice(1, -1).replace(/-/g, ' ')}
+            {props.guessId.specialties.length === 1 && props.guessId.specialties[0] === '-' && "None"}
           </p>
         </div>
     

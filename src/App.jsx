@@ -3,30 +3,54 @@ import './App.css'
 import { DailyIdentity } from './DailyIdentity';
 import { DailyEgo } from './DailyEgo';
 import { DailyImage } from './DailyImage';
+import { EndlessIdentity } from './EndlessIdentity';
+import { EndlessEgo } from './EndlessEgo';
+import { EndlessImage } from './EndlessImage';
 import { HashRouter as Router, Routes, Route, Link} from "react-router-dom"
 import { titleTextStyleBold } from './styles';
+import { useState } from "react";
 
-export default class App extends React.Component  {
+export default function App() {
 
-  render() {
+  const [endlessEnabled, setEndlessEnabled] = useState(false);
+
+  const toggleEndless = () => {
+    // endlessEnabled ? window.location.href = '../' : window.location.href = '/limbusdle/endless'
+    setEndlessEnabled(!endlessEnabled)
+  }
+
+    
     return <div className='Background'><div className='App'>
       <Router style={{overflowY: 'hidden'}}>
-        <div style={{
+        {!endlessEnabled && <div style={{
           backgroundColor: 'darkred',
           boxShadow: '0px 0px 15px #8B0000',
         }}>
           <Link to={"/"} style={{...titleTextStyleBold, fontSize: 25, marginLeft: '20vw', marginRight: '2vw'}}>Identity</Link>
           <Link to={"/ego"} style={{...titleTextStyleBold, fontSize: 25, marginLeft: '2vw', marginRight: '2vw'}}>E.G.O</Link>
           <Link to={"/art"} style={{...titleTextStyleBold, fontSize: 25, marginLeft: '2vw', marginRight: '20vw'}}>Art</Link>
-        </div>
+          <button onMouseDown={toggleEndless}>Endless</button>
+        </div>}
+        {endlessEnabled && <div style={{
+          backgroundColor: 'orange',
+          boxShadow: '0px 0px 15px #8B0000',
+        }}>
+          <Link to={"/endless/"} style={{...titleTextStyleBold, fontSize: 25, marginLeft: '20vw', marginRight: '2vw'}}>Identity</Link>
+          <Link to={"/ego/endless"} style={{...titleTextStyleBold, fontSize: 25, marginLeft: '2vw', marginRight: '2vw'}}>E.G.O</Link>
+          <Link to={"/art/endless"} style={{...titleTextStyleBold, fontSize: 25, marginLeft: '2vw', marginRight: '20vw'}}>Art</Link>
+          <button onMouseDown={toggleEndless}>Daily</button>
+        </div>}
         <Routes>
           <Route path="/" element={<DailyIdentity />} />
           <Route path="/ego" element={<DailyEgo />} />
           <Route path="/art" element={<DailyImage />} />
+          <Route path="/endless/" element={<EndlessIdentity />} />
+          <Route path="/ego/endless" element={<EndlessEgo />} />
+          <Route path="/art/endless" element={<EndlessImage />} />
           <Route path="*" element={<h1 style={{...titleTextStyleBold, color: 'white', alignSelf: 'center'}}> {'<⬜⬜⬜⬜⬜>   '}  ...there's nothing here. </h1>} />
         </Routes>
       </Router>
       </div>
     </div>
-  }
+  
 }

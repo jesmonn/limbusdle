@@ -2,33 +2,39 @@ import { useState, useEffect } from "react";
 import Rand, { PRNG } from 'rand-seed';
 import { logoTextStyle, flexHeader, basicTextStyle, basicTextStyleBold } from './styles';
 import { ReactSearchAutocomplete } from 'react-search-autocomplete';
-import { Ego } from "./Ego";
-import { compareGuessAndCheckSolvedEgo, getEgoIconPath, guessToEmojis, initializeEgos, guessToEmojisEgo } from './CompareFunctions';
+import { Identity } from "./Identity";
+import { compareGuessAndCheckSolved, getSkillIconPath, guessToEmojis, initializeIdentities, guessToEmojisIdentity } from './CompareFunctions'
 import './styles.css'
 
-export const DailyEgo = () => {
+export const EndlessIdentity = () => {
     const [solved, setSolved] = useState(false);
-    const [egos, setEgos] = useState([{}]);
-    const [chosenEgo, setChosenEgo] = useState([false, {}]);
+    const [identities, setIdentities] = useState([{}]);
+    const [chosenIdentity, setChosenIdentity] = useState([false, {}]);
     const [guessList, setGuessList] = useState([]);
     // const [guessFilenames, setGuessFilenames] = useState([]);
     const [searchString, setSearchString] = useState("");
     const [showHint1, setShowHint1] = useState(false);
+    const [showHint2, setShowHint2] = useState(false);
 
     const toggleHint1 = () => {
       setShowHint1(!showHint1)
     }
 
+    const toggleHint2 = () => {
+      setShowHint2(!showHint2)
+    }
+
     useEffect(() => {
-        const rand = new Rand(String(1+new Date().toLocaleString('en-US', { timeZone: 'Asia/Jakarta', year: 'numeric', month: 'numeric', day: 'numeric', })), PRNG.xoshiro128ss)
-        initializeEgos(setEgos, setChosenEgo, rand.next())
-        console.log(chosenEgo)
+      const random = Math.random()
+      const rand = new Rand(String((Date.now()*random)), PRNG.xoshiro128ss)
+      initializeIdentities(setIdentities, setChosenIdentity, rand.next())
+      console.log(chosenIdentity)
     }, [])
 
-    const addGuess = (ego) => {
-      setGuessList([compareGuessAndCheckSolvedEgo(ego, setSolved, chosenEgo), ...guessList])
-      setEgos(egos.filter(id =>
-         !((ego.ego_name === id.ego_name) && (ego.sinner_name === id.sinner_name))))
+    const addGuess = (identity) => {
+      setGuessList([compareGuessAndCheckSolved(identity, setSolved, chosenIdentity), ...guessList])
+      setIdentities(identities.filter(id =>
+         !((identity.id_title === id.id_title) && (identity.sinner_name === id.sinner_name))))
     }
 
     const handleOnSearch = (string, results) => {
@@ -45,7 +51,9 @@ export const DailyEgo = () => {
     }
 
     const formatResult = (item) => {
-        const icon_path = getEgoIconPath(item.sinner_name, item.ego_name);
+      const sinner_folder = item.sinner_name.replace(/\W/g, '');
+      const id_folder = item.id_title.replace(/\W/g, '');
+      const icon_path = "https://raw.githubusercontent.com/jesmonn/limbusdle/refs/heads/master/src/assets/images\\IdentitiesEGOArt\\"+sinner_folder+"\\Identities\\"+id_folder+"\\_gacksung_profile.png";
       return (
           <>
           <div style={
@@ -90,9 +98,9 @@ export const DailyEgo = () => {
         borderRadius: '5px',
         backdropFilter: 'blur(6px)'
       }}>
-        <p style={basicTextStyle}>Guess the E.G.O! Resets every midnight UTC+7. (Note: Standard Fare is considered Season 0.)</p>
+        <p style={basicTextStyle}>Guess the identity! Endless mode, resets each time the page is loaded. (Note: Standard Fare is considered Season 0.)</p>
       </div>
-       <div style={{marginBottom: 40}}>
+      <div style={{marginBottom: 40}}>
         <div className="addGuess" style={
           {
             marginLeft: 'auto',
@@ -109,13 +117,13 @@ export const DailyEgo = () => {
         borderRadius: '5px',
         backdropFilter: 'blur(6px)'
       }}>
-            {!(guessList.length > 5) && <div style={basicTextStyle}>A blurred monochrome image of its icon can be revealed after {6-guessList.length} guess(es).</div>}
-            {(guessList.length > 5 && !showHint1) && <button onClick={toggleHint1}>
-              Show Icon
+            {!(guessList.length > 3) && <div style={basicTextStyle}>A blurred monochrome image of its Skill 1 can be revealed after {4-guessList.length} guess(es).</div>}
+            {(guessList.length > 3 && !showHint1) && <button onClick={toggleHint1}>
+              Show Skill
             </button>
             }
-            {(guessList.length > 5 && showHint1) && <img 
-              src={getEgoIconPath(chosenEgo.sinner_name, chosenEgo.ego_name)}
+            {(guessList.length > 3 && showHint1) && <img 
+              src={getSkillIconPath(chosenIdentity.sinner_name, chosenIdentity.id_title, chosenIdentity.skills[0].skill_name)}
               style={{
                   width: 150,
                   height: 150,
@@ -124,10 +132,17 @@ export const DailyEgo = () => {
                   pointerEvents: 'none'
                 }}
               ></img>}
+            <br></br>
+            {!(guessList.length > 7) && <div style={basicTextStyle}>The name of its Support passive can be revealed after {8-guessList.length} guess(es).</div>}
+            {(guessList.length > 7 && showHint2) && <div style={basicTextStyle}>Support Passive: {chosenIdentity.passives.at(-1).passive_name}</div>}
+            {(guessList.length > 7 && !showHint2) && <button onClick={toggleHint2}>
+              Show Passive
+            </button>
+            }
           </div>
           }
           {!solved && <div style={{animation: 'fade-in 1.2s'}}><ReactSearchAutocomplete
-              items={egos}
+              items={identities}
               onSelect={handleOnSelect}
               showIcon={false}
               autoFocus
@@ -135,7 +150,7 @@ export const DailyEgo = () => {
               onSearch={handleOnSearch}
               inputSearchString={searchString}
               fuseOptions={{
-                keys: ["ego_name", "sinner_name"]
+                keys: ["id_title", "sinner_name"]
               }}
               styling={
                 {
@@ -146,21 +161,22 @@ export const DailyEgo = () => {
            </div>}
           
           {solved && <div style={{
-        backgroundColor: 'rgba(33, 32, 32, 0.2)',
-        borderColor: 'rgba(33, 32, 32, 0.2)',
-        border: '2px',
-        borderRadius: '5px',
-        backdropFilter: 'blur(6px)'
-      }}> <h2 style={basicTextStyle}>
-            You found the E.G.O in <b>{guessList.length}</b> guess(es)!
+            backgroundColor: 'rgba(33, 32, 32, 0.2)',
+            borderColor: 'rgba(33, 32, 32, 0.2)',
+            border: '2px',
+            borderRadius: '5px',
+            backdropFilter: 'blur(6px)'
+      }}><h2 style={basicTextStyle}>
+            You found the identity in <b>{guessList.length}</b> guess(es)!
             <br></br>
             <p style={{whiteSpace: 'pre-wrap'}}>{guessToEmojis(guessList)}</p>
             <button onClick={ () =>
               navigator.clipboard.writeText(
-                'I found today\'s Limbusdle E.G.O. in '+guessList.length+' tries!\n'+
-                guessToEmojisEgo(guessList))
+                'I found today\'s Limbusdle Identity in '+guessList.length+' tries!\n'+
+                guessToEmojisIdentity(guessList))
             }>Copy</button> 
-            </h2> </div>
+            </h2>
+            </div>
             }
         </div>
         <div className="list" style={{
@@ -181,7 +197,7 @@ export const DailyEgo = () => {
           }}>
             <div style={flexHeader(1.2)}>
               <p style={basicTextStyleBold}>
-                E.G.O
+                ID
               </p>
             </div>
             <div style={flexHeader(1.5)}>
@@ -194,14 +210,9 @@ export const DailyEgo = () => {
                 Season
               </p>
             </div>
-            <div style={flexHeader(1.1)}>
+            <div style={flexHeader(0.8)}>
               <p style={basicTextStyleBold}>
-                Class
-              </p>
-            </div>
-            <div style={flexHeader(1.1)}>
-              <p style={basicTextStyleBold}>
-                Affinity
+                Rarity
               </p>
             </div>
             <div style={flexHeader(3)}>
@@ -212,14 +223,21 @@ export const DailyEgo = () => {
 
           </div>
           {[...guessList].map((guess) => {
-            return <Ego
-              guessEgo={guess}
-              iconPath={getEgoIconPath(guess.sinner_name, guess.ego_name)}
+
+            const sinner_folder = guess.sinner_name.replace(/\W/g, '');
+            const id_folder = guess.id_title.replace(/\W/g, '');
+            const icon_path = "https://raw.githubusercontent.com/jesmonn/limbusdle/refs/heads/master/src/assets/images\\IdentitiesEGOArt\\"+sinner_folder+"\\Identities\\"+id_folder+"\\_gacksung_profile.png";
+
+            return <Identity
+              guessId={guess}
+              iconPath={icon_path}
               className=''
             />;
           })}
+          <div style={{marginTop: 30, marginBottom: 10}}></div>
           </div>
-         </div>
+      </div>
+    
     </div>
     );
 

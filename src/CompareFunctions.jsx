@@ -24,6 +24,7 @@ export const compareGuessAndCheckSolved = (identity, setSolved, chosenIdentity) 
           id_rarity: identity.id_rarity,
           specialties: identity.specialties,
           sinnerColor: identity.sinner_name === chosenIdentity.sinner_name ? 'limegreen' : 'crimson',
+          sinnerArrow: compareSinners(toSinnerNumber(identity.sinner_name), toSinnerNumber(chosenIdentity.sinner_name)),
           seasonColor: identity.season === chosenIdentity.season ? 'limegreen' : 'crimson',
           seasonArrow: compareSeasons(identity.season === "Standard Fare" ? "Season 0" : identity.season, chosenIdentity.season === "Standard Fare" ? "Season 0" : chosenIdentity.season),
           rarityColor: identity.id_rarity === chosenIdentity.id_rarity ? 'limegreen' : 'crimson',
@@ -41,6 +42,7 @@ export const compareGuessAndCheckSolved = (identity, setSolved, chosenIdentity) 
         sin_affinity: ego.sin_affinity,
         specialties: ego.specialties,
         sinnerColor: ego.sinner_name === chosenEgo.sinner_name ? 'limegreen' : 'crimson',
+        sinnerArrow: compareSinners(toSinnerNumber(ego.sinner_name), toSinnerNumber(chosenEgo.sinner_name)),
         seasonColor: ego.season === chosenEgo.season ? 'limegreen' : 'crimson',
         seasonArrow: compareSeasons(ego.season === "Standard Fare" ? "Season 0" : ego.season, chosenEgo.season === "Standard Fare" ? "Season 0" : chosenEgo.season),
         rarityColor: ego.rarity === chosenEgo.rarity ? 'limegreen' : 'crimson',
@@ -54,6 +56,16 @@ export const compareSeasons = (guess, season) => {
       return 'url(\./icons/arrowIconRedDown.png\)'
     }
     if(guess < season) {
+      return 'url(\./icons/arrowIconRedUp.png\)'
+    }
+    return ""
+}
+
+export const compareSinners = (guess, sinner) => {
+    if(guess > sinner) {
+      return 'url(\./icons/arrowIconRedDown.png\)'
+    }
+    if(guess < sinner) {
       return 'url(\./icons/arrowIconRedUp.png\)'
     }
     return ""
@@ -120,7 +132,35 @@ export const toSinnerEmoji = (sinner) => {
         return '👢';
       case 'Gregor':
         return '🪲';
-      
+    }
+  }
+
+export const toSinnerNumber = (sinner) => {
+    switch(sinner) {
+      case 'Yi Sang':
+        return 1;
+      case 'Faust':
+        return 2;
+      case 'Don Quixote':
+        return 3;
+      case 'Ryoshu':
+        return 4;
+      case 'Meursault':
+        return 5;
+      case 'Hong Lu':
+        return 6;
+      case 'Heathcliff':
+        return 7;
+      case 'Ishmael':
+        return 8;
+      case 'Rodion':
+        return 9;
+      case 'Sinclair':
+        return 11;
+      case 'Outis':
+        return 12;
+      case 'Gregor':
+        return 13;
     }
   }
   
@@ -164,6 +204,8 @@ export const guessToEmojis = (guessList) => {
       toColorEmoji(guess.seasonColor)
       +
       toColorEmoji(guess.rarityColor)
+      +
+      toColorEmoji(guess.sinColor)
       +
       toColorEmoji(guess.specialtiesColor))
     })
